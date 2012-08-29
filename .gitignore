@@ -1,3 +1,5 @@
+.env
+tmp/heroku.log
 *.gem
 *.rbc
 .bundle

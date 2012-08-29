@@ -1,0 +1,1 @@
+watchdoh: bundle exec script/watchdoh /var/log/heroku/merchii/merchii-worker.log

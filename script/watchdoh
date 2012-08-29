@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+$: << File.expand_path('../../', __FILE__)
+
+require 'rubygems'
+require 'bundler'
+
+begin
+  Bundler.setup(:default, :development)
+rescue Bundler::BundlerError => exception
+  $stderr.puts exception.message
+  $stderr.puts "Rund 'bundle install' to install missing gems"
+  exit exception.status_code
+end
+
+require 'lib/watchdoh'
+
+def main(args)
+  if args.length == 0
+    puts "Usage: #{$0} <path> [path2] [...]"
+    return 1
+  end
+
+  EventMachine.run do
+    args.each do |path|
+      EventMachine::file_tail(path, ::Watchdoh::Reader)
+    end
+  end
+end # def main
+
+exit(main(ARGV))
